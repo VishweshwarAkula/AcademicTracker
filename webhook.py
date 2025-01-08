@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify  # type: ignore
+from flask import Flask, request, jsonify
 import subprocess
 import os
 
@@ -12,7 +12,7 @@ def webhook():
         user_input = req['queryResult']['queryText']
 
         # Ensure the C++ executable exists
-        cpp_executable = 'compute.exe'
+        cpp_executable = 'compute.exe'  # Assuming 'compute.exe' is in the same directory
         if not os.path.isfile(cpp_executable):
             print(f"Debug: File not found at {cpp_executable}")
             return jsonify({'fulfillmentText': 'C++ executable not found.'})
@@ -40,4 +40,4 @@ def webhook():
         return jsonify({'fulfillmentText': f'An error occurred: {str(e)}'})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)  # Make sure it's binded to all interfaces
