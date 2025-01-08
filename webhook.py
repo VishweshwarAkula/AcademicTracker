@@ -4,6 +4,12 @@ import os
 
 app = Flask(__name__)
 
+# Route for the root URL (default landing)
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({'message': 'Welcome to the Academic Tracker Webhook!'})
+
+# Route to handle Dialogflow webhook POST requests
 @app.route('/webhook', methods=['POST'])
 def webhook():
     if request.method == 'POST':
