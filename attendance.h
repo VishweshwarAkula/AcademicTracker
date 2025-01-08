@@ -17,7 +17,7 @@ extern std::vector<std::string> holidays;
 // Functions to interact with the attendance data
 void markAttendance(const std::string& day);
 void markAbsent(const std::string& subject);
-void updateAttendance();
+void updateAttendance();  // Ensure this function is declared here
 void handleMissedClasses(const std::string& subject);
 void markMultipleAbsents(const std::string& subject, int count);  // New function
 
@@ -26,4 +26,4 @@ std::string getCurrentDate();
 std::string getCurrentDay();
 bool isAfterSixPM();
 
-#endif
+#endif  // ATTENDANCE_H
