@@ -1,19 +1,14 @@
-#include <iostream>
-#include <map>
-#include <vector>
-#include <string>
-#include <sstream>
-#include <chrono>
-#include <ctime>
-#include <limits>
+#include <bits/stdc++.h>
+
+using namespace std;
 
 int totalClassesOccurred = 0;
 int attendedClassesCS = 0, attendedClassesEE_Lab = 0, attendedClassesPhysics = 0, attendedClassesMath = 0;
 int attendedClassesPPS = 0, attendedClassesBEE = 0, attendedClassesBSE = 0, attendedClassesNSS = 0, attendedClassesPhysics_Lab = 0;
 
-std::vector<std::string> daysOfWeek = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+vector<string> daysOfWeek = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
-std::map<std::string, std::vector<std::string>> classSchedule = {
+map<string, vector<string>> classSchedule = {
     {"Monday", {"Communication Skills", "EE Lab", "Physics", "Math", "PPS"}},
     {"Tuesday", {"PPS", "Physics Lab"}},
     {"Wednesday", {"Math", "PPS", "BEE", "Physics"}},
@@ -21,9 +16,9 @@ std::map<std::string, std::vector<std::string>> classSchedule = {
     {"Friday", {"BEE", "Physics", "Math", "PPS", "BSE", "EE Lab"}},
 };
 
-std::vector<std::string> holidays = {"2025-01-01", "2025-12-25"};
+vector<string> holidays = {"2025-01-01", "2025-12-25"};
 
-bool checkHoliday(const std::string& currentDate) {
+bool checkHoliday(const string& currentDate) {
     for (const auto& holiday : holidays) {
         if (currentDate == holiday) {
             return true;
@@ -32,11 +27,11 @@ bool checkHoliday(const std::string& currentDate) {
     return false;
 }
 
-std::string getCurrentDate() {
+string getCurrentDate() {
     return "2025-01-08";
 }
 
-std::string getCurrentDay() {
+string getCurrentDay() {
     return "Wednesday";
 }
 
@@ -50,15 +45,15 @@ bool isAfterSixPM() {
     return hour >= 18;
 }
 
-void markAttendance(const std::string& day) {
+void markAttendance(const string& day) {
     if (checkHoliday(getCurrentDate())) {
-        std::cout << "Today is a holiday. No classes.\n";
+        cout << "Today is a holiday. No classes.\n";
         return;
     }
 
     totalClassesOccurred++;
 
-    std::cout << "Classes are marked present for today.\n";
+    cout << "Classes are marked present for today.\n";
 
     for (const auto& subject : classSchedule[day]) {
         if (subject == "Communication Skills") attendedClassesCS++;
@@ -73,7 +68,7 @@ void markAttendance(const std::string& day) {
     }
 }
 
-void markAbsent(const std::string& subject) {
+void markAbsent(const string& subject) {
     if (subject == "Communication Skills" && attendedClassesCS > 0) {
         attendedClassesCS--;
     } else if (subject == "EE Lab" && attendedClassesEE_Lab > 0) {
@@ -93,7 +88,7 @@ void markAbsent(const std::string& subject) {
     } else if (subject == "Physics Lab" && attendedClassesPhysics_Lab > 0) {
         attendedClassesPhysics_Lab--;
     }
-    std::cout << "Marked " << subject << " as missed.\n";
+    cout << "Marked " << subject << " as missed.\n";
 }
 
 void updateAttendance() {
@@ -107,41 +102,41 @@ void updateAttendance() {
     float percentageNSS = (attendedClassesNSS > 0) ? (attendedClassesNSS / float(totalClassesOccurred)) * 100 : 0;
     float percentagePhysics_Lab = (attendedClassesPhysics_Lab > 0) ? (attendedClassesPhysics_Lab / float(totalClassesOccurred)) * 100 : 0;
 
-    std::cout << "Attendance Dashboard:\n";
-    std::cout << "Communication Skills: " << attendedClassesCS << "/" << totalClassesOccurred << " (" << percentageCS << "%)\n";
-    std::cout << "EE Lab: " << attendedClassesEE_Lab << "/" << totalClassesOccurred << " (" << percentageEE_Lab << "%)\n";
-    std::cout << "Physics: " << attendedClassesPhysics << "/" << totalClassesOccurred << " (" << percentagePhysics << "%)\n";
-    std::cout << "Math: " << attendedClassesMath << "/" << totalClassesOccurred << " (" << percentageMath << "%)\n";
-    std::cout << "PPS: " << attendedClassesPPS << "/" << totalClassesOccurred << " (" << percentagePPS << "%)\n";
-    std::cout << "BEE: " << attendedClassesBEE << "/" << totalClassesOccurred << " (" << percentageBEE << "%)\n";
-    std::cout << "BSE: " << attendedClassesBSE << "/" << totalClassesOccurred << " (" << percentageBSE << "%)\n";
-    std::cout << "NSS: " << attendedClassesNSS << "/" << totalClassesOccurred << " (" << percentageNSS << "%)\n";
-    std::cout << "Physics Lab: " << attendedClassesPhysics_Lab << "/" << totalClassesOccurred << " (" << percentagePhysics_Lab << "%)\n";
+    cout << "Attendance Dashboard:\n";
+    cout << "Communication Skills: " << attendedClassesCS << "/" << totalClassesOccurred << " (" << percentageCS << "%)\n";
+    cout << "EE Lab: " << attendedClassesEE_Lab << "/" << totalClassesOccurred << " (" << percentageEE_Lab << "%)\n";
+    cout << "Physics: " << attendedClassesPhysics << "/" << totalClassesOccurred << " (" << percentagePhysics << "%)\n";
+    cout << "Math: " << attendedClassesMath << "/" << totalClassesOccurred << " (" << percentageMath << "%)\n";
+    cout << "PPS: " << attendedClassesPPS << "/" << totalClassesOccurred << " (" << percentagePPS << "%)\n";
+    cout << "BEE: " << attendedClassesBEE << "/" << totalClassesOccurred << " (" << percentageBEE << "%)\n";
+    cout << "BSE: " << attendedClassesBSE << "/" << totalClassesOccurred << " (" << percentageBSE << "%)\n";
+    cout << "NSS: " << attendedClassesNSS << "/" << totalClassesOccurred << " (" << percentageNSS << "%)\n";
+    cout << "Physics Lab: " << attendedClassesPhysics_Lab << "/" << totalClassesOccurred << " (" << percentagePhysics_Lab << "%)\n";
 }
 
-void handleMissedClasses(const std::string& subject) {
+void handleMissedClasses(const string& subject) {
     markAbsent(subject);
 }
 
 int main()
 {
     while (true) {
-        std::string currentDate = getCurrentDate();
-        std::string currentDay = getCurrentDay();
+        string currentDate = getCurrentDate();
+        string currentDay = getCurrentDay();
 
-        std::cout << "Current Date: " << currentDate << "\n";
-        std::cout << "Current Day: " << currentDay << "\n";
+        cout << "Current Date: " << currentDate << "\n";
+        cout << "Current Day: " << currentDay << "\n";
 
         markAttendance(currentDay);
 
         if (isAfterSixPM()) {
-            std::cout << "\nPlease input any classes you missed today (separate with commas):\n";
-            std::string missedClasses;
-            std::getline(std::cin, missedClasses);
+            cout << "\nPlease input any classes you missed today (separate with commas):\n";
+            string missedClasses;
+            getline(cin, missedClasses);
 
-            std::string subject;
-            std::istringstream ss(missedClasses);
-            while (std::getline(ss, subject, ',')) {
+            string subject;
+            istringstream ss(missedClasses);
+            while (getline(ss, subject, ',')) {
                 subject.erase(0, subject.find_first_not_of(" \t\n\r\f\v"));
                 subject.erase(subject.find_last_not_of(" \t\n\r\f\v") + 1);
                 handleMissedClasses(subject);
@@ -150,10 +145,11 @@ int main()
 
         updateAttendance();
 
-        std::cout << "Press Enter to simulate the next day...\n";
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cin.get();
+        cout << "Press Enter to simulate the next day...\n";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
     }
 
     return 0;
 }
+
