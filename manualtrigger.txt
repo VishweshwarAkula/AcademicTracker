@@ -1,0 +1,93 @@
+// Endpoint to manually trigger attendance for a specific day
+app.post('/mark-attendance-manual', (req, res) => {
+    const { day } = req.body;
+
+    if (!day) {
+        return res.status(400).send("Please specify a day.");
+    }
+
+    const validDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
+    if (!validDays.includes(day)) {
+        return res.status(400).send("Invalid day. Please provide a valid day (Monday to Friday).");
+    }
+
+    // Mark attendance for the specified day
+    markAttendanceForSpecificDay(day);
+
+    res.send(`Attendance for ${day} has been marked as present for all classes.`);
+});
+
+// Function to mark attendance for a specific day
+function markAttendanceForSpecificDay(day) {
+    const data = readAttendanceData();
+
+    // Get the classes for the specified day
+    const classesForDay = classSchedule[day];
+
+    // Increment the total classes occurred and attended for each subject
+    classesForDay.forEach((subject) => {
+        // Increment totalClasses for the specific subject
+        if (subject === "Communication Skills") data.totalClassesCS++;
+        if (subject === "EE Lab") data.totalClassesEE_Lab++;
+        if (subject === "Physics") data.totalClassesPhysics++;
+        if (subject === "Math") data.totalClassesMath++;
+        if (subject === "PPS") data.totalClassesPPS++;
+        if (subject === "BEE") data.totalClassesBEE++;
+        if (subject === "BSE") data.totalClassesBSE++;
+        if (subject === "NSS") data.totalClassesNSS++;
+        if (subject === "Physics Lab") data.totalClassesPhysics_Lab++;
+
+        // Increment attendedClasses for the specific subject
+        if (subject === "Communication Skills") data.attendedClassesCS++;
+        if (subject === "EE Lab") data.attendedClassesEE_Lab++;
+        if (subject === "Physics") data.attendedClassesPhysics++;
+        if (subject === "Math") data.attendedClassesMath++;
+        if (subject === "PPS") data.attendedClassesPPS++;
+        if (subject === "BEE") data.attendedClassesBEE++;
+        if (subject === "BSE") data.attendedClassesBSE++;
+        if (subject === "NSS") data.attendedClassesNSS++;
+        if (subject === "Physics Lab") data.attendedClassesPhysics_Lab++;
+    });
+
+    // Write updated data back to the file
+    writeAttendanceData(data);
+    console.log(`Attendance for ${day} marked as present for all classes.`);
+}
+
+//express file ends over here
+
+add it to exisiting shit  then read
+
+
+
+
+
+How to Trigger It Using Postman:
+Start Your Backend:
+
+Ensure your server is running by executing node server.js (or whatever your backend file is named).
+Using Postman:
+
+Open Postman and create a POST request.
+Set the URL as http://localhost:3000/mark-attendance-manual.
+In the Body section, select raw and choose JSON from the dropdown.
+Send the following JSON request:
+json
+Copy code
+{
+    "day": "Tuesday"
+}
+This will manually mark attendance for the classes on Tuesday.
+
+Expected Response:
+The server will respond with:
+json
+Copy code
+"Attendance for Tuesday has been marked as present for all classes."
+The attendance will be updated in the attendanceData.json file accordingly.
+Example Flow:
+You want to manually mark attendance for Tuesday (i.e., simulate what happens at 12:00 AM).
+Send a POST request as described.
+The backend will loop through the classes on Tuesday and increment both totalClasses and attendedClasses for each subject.
+You'll be able to see the updated data in attendanceData.json, and you can also check the attendance stats from the GET /attendance-stats endpoint.
