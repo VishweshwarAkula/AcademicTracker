@@ -147,7 +147,7 @@ app.post('/mark-multiple-absents', (req, res) => {
 });
 
 // Endpoint to retrieve attendance stats
-app.get('/attendance-stats', (req, res) => {
+app.get('/', (req, res) => {
     const data = readAttendanceData();
 
     // Calculate attendance percentage for each subject
