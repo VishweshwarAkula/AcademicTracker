@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
     axios.get('http://localhost:3000/attendance-stats')
       .then((response) => {
-        setAttendanceData(response.data.attendance);
+        setAttendanceData(response.data.attendance); // Attendance data containing percentages for each subject
         setLoading(false);  // Set loading to false once data is fetched
       })
       .catch((error) => {
@@ -46,15 +46,16 @@ function App() {
         </thead>
         <tbody>
           {Object.keys(attendanceData).map((subject) => {
-            const attendedClasses = attendanceData[subject];
-            const totalClasses = attendedClasses.totalClasses;
-            const attendancePercent = (attendedClasses.attended / totalClasses) * 100 || 0;
+            // Calculate attendance percentage for each subject
+            const totalClasses = attendanceData[subject].totalClasses;
+            const attendedClasses = attendanceData[subject].attendedClasses;
+            const attendancePercent = (attendedClasses / totalClasses) * 100 || 0;
 
             return (
               <tr key={subject}>
                 <td>{subject}</td>
                 <td>{totalClasses}</td>
-                <td>{attendedClasses.attended}</td>
+                <td>{attendedClasses}</td>
                 <td>{attendancePercent.toFixed(2)}%</td>
               </tr>
             );
