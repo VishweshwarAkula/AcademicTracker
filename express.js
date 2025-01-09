@@ -7,7 +7,8 @@ const app = express();
 const port = 3000;
 
 // File path for storing attendance data
-const dataFilePath = path.join(__dirname, 'attendanceData.json');
+const dataFilePath = path.join(__dirname,'attendanceData.json');
+
 
 // Function to read the data from the file
 function readAttendanceData() {
@@ -146,6 +147,17 @@ app.post('/mark-multiple-absents', (req, res) => {
     res.send(`${count} absences for ${subject} have been marked.`);
 });
 
+
+
+
+
+
+
+
+
+
+
+
 // Endpoint to retrieve attendance stats
 app.get('/', (req, res) => {
     const data = readAttendanceData();
@@ -153,14 +165,14 @@ app.get('/', (req, res) => {
     // Calculate attendance percentage for each subject
     const attendanceStats = {
         attendance: {
-            "Communication Skills": (data.attendedClassesCS / data.totalClassesCS) * 100 || 0,
-            "EE Lab": (data.attendedClassesEE_Lab / data.totalClassesEE_Lab) * 100 || 0,
-            "Physics": (data.attendedClassesPhysics / data.totalClassesPhysics) * 100 || 0,
-            "Math": (data.attendedClassesMath / data.totalClassesMath) * 100 || 0,
-            "PPS": (data.attendedClassesPPS / data.totalClassesPPS) * 100 || 0,
-            "BEE": (data.attendedClassesBEE / data.totalClassesBEE) * 100 || 0,
-            "BSE": (data.attendedClassesBSE / data.totalClassesBSE) * 100 || 0,
-            "NSS": (data.attendedClassesNSS / data.totalClassesNSS) * 100 || 0,
+            "Communication Skills": (data.attendedClassesCS / data.totalClassesCS) * 100,
+            "EE Lab": (data.attendedClassesEE_Lab / data.totalClassesEE_Lab) * 100,
+            "Physics": (data.attendedClassesPhysics / data.totalClassesPhysics) * 100,
+            "Math": (data.attendedClassesMath / data.totalClassesMath) * 100,
+            "PPS": (data.attendedClassesPPS / data.totalClassesPPS) * 100,
+            "BEE": (data.attendedClassesBEE / data.totalClassesBEE) * 100,
+            "BSE": (data.attendedClassesBSE / data.totalClassesBSE) * 100,
+            "NSS": (data.attendedClassesNSS / data.totalClassesNSS) * 100,
             "Physics Lab": (data.attendedClassesPhysics_Lab / data.totalClassesPhysics_Lab) * 100 || 0
         }
     };
