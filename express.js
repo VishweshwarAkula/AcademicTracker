@@ -171,6 +171,4 @@ app.get('/attendance-stats', (req, res) => {
 // Start the Express server
 app.listen(port, () => {
     console.log(`Attendance app listening at http://localhost:${port}`);
-}); 
-
-
+});
