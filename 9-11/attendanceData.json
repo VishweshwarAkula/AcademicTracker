@@ -1,0 +1,20 @@
+{
+  "attendedClassesCS": 29,
+  "totalClassesCS": 40,
+  "attendedClassesEE_Lab": 15,
+  "totalClassesEE_Lab": 20,
+  "attendedClassesPhysics": 10,
+  "totalClassesPhysics": 20,
+  "attendedClassesMath": 15,
+  "totalClassesMath": 35,
+  "attendedClassesPPS": 4,
+  "totalClassesPPS": 30,
+  "attendedClassesBEE": 22,
+  "totalClassesBEE": 28,
+  "attendedClassesBSE": 18,
+  "totalClassesBSE": 25,
+  "attendedClassesNSS": 16,
+  "totalClassesNSS": 24,
+  "attendedClassesPhysics_Lab": 13,
+  "totalClassesPhysics_Lab": 20
+}
