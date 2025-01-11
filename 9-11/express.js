@@ -192,6 +192,50 @@ function markMultipleAbsents(subject, count) {
     });
 }
 
+// Endpoint to calculate how many more classes to attend to reach a target percentage
+app.post('/calculate-classes-required', (req, res) => {
+    const { subject, targetPercentage } = req.body;
+
+    if (!subject || !targetPercentage || targetPercentage <= 0) {
+        return res.status(400).send("Please provide a valid subject and target percentage.");
+    }
+
+    const data = readAttendanceData();
+
+    // Ensure the subject exists in the data file
+    const attendedClassesKey = `attendedClasses${subject.replace(/\s+/g, '_')}`;
+    const totalClassesKey = `totalClassesInSemester${subject.replace(/\s+/g, '_')}`;
+
+    if (!data[attendedClassesKey] || !data[totalClassesKey]) {
+        return res.status(400).send(`No data available for the subject: ${subject}`);
+    }
+
+    const attendedClasses = data[attendedClassesKey];
+    const totalClassesInSemester = data[totalClassesKey];
+
+    // Calculate how many more classes the user needs to attend to meet the target percentage
+    const currentPercentage = (attendedClasses / totalClassesInSemester) * 100;
+
+    if (currentPercentage >= targetPercentage) {
+        return res.json({
+            message: `You are already meeting the target of ${targetPercentage}% attendance.`
+        });
+    }
+
+    // Formula to calculate remaining classes required to meet the target percentage
+    const requiredClasses = Math.ceil(((targetPercentage / 100) * totalClassesInSemester) - attendedClasses);
+    
+    if (requiredClasses <= 0) {
+        return res.json({
+            message: `You need to attend all remaining classes to maintain ${targetPercentage}% attendance.`
+        });
+    }
+
+    res.json({
+        message: `You need to attend ${requiredClasses} more class(es) in ${subject} to reach ${targetPercentage}% attendance.`
+    });
+});
+
 // Endpoint to retrieve attendance stats
 app.get('/', (req, res) => {
     const data = readAttendanceData();
